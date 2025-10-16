@@ -172,4 +172,14 @@
 			}
 		});
 	});
+	
+	/** Hide fullPage.js watermark */
+	window.addEventListener('load', function(){
+		const watermark = document.querySelector('.fp-watermark');
+		if(watermark){
+			watermark.style.opacity = '0';
+			watermark.style.pointerEvents = 'none';
+			watermark.style.userSelect = 'none';
+		}
+	});
 })();
