@@ -173,6 +173,34 @@
 		});
 	});
 	
+	/** Mattress animation on hover */
+	const productColorsSection = document.querySelector('.product-colors');
+	if(productColorsSection){
+		const firstLeft = productColorsSection.querySelector('.first-left');
+		const secondLeft = productColorsSection.querySelector('.second-left');
+		const mattressesStack = productColorsSection.querySelector('.mattresses-stack');
+		
+		if(firstLeft && secondLeft && mattressesStack){
+			// Add hover listeners to first-left (animates mattress-top)
+			firstLeft.addEventListener('mouseenter', function(){
+				mattressesStack.classList.add('mattress-top-animate');
+			});
+			
+			firstLeft.addEventListener('mouseleave', function(){
+				mattressesStack.classList.remove('mattress-top-animate');
+			});
+			
+			// Add hover listeners to second-left (animates mattress-bottom)
+			secondLeft.addEventListener('mouseenter', function(){
+				mattressesStack.classList.add('mattress-bottom-animate');
+			});
+			
+			secondLeft.addEventListener('mouseleave', function(){
+				mattressesStack.classList.remove('mattress-bottom-animate');
+			});
+		}
+	}
+
 	/** Hide fullPage.js watermark */
 	window.addEventListener('load', function(){
 		const watermark = document.querySelector('.fp-watermark');
