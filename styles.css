@@ -323,6 +323,10 @@ img{ display:block; max-width:100%; height:auto; }
 .mattress-bottom-animate .mattress-shadow{
 	opacity:0;
 }
+/* Hide shadow when only the top mattress animates */
+.mattress-top-animate .mattress-shadow{
+	opacity:0;
+}
 
 /* Tech columns section */
 .tech-columns{
