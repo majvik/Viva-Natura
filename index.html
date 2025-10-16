@@ -7,12 +7,13 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/fullpage.js@4.0.20/dist/fullpage.min.css">
 	<link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 	<nav class="fp-dots" aria-label="Навигация по секциям"></nav>
-	<main id="fullpage" class="fp-container">
-		<section id="hero" class="fp-section hero" data-label="Hero">
+	<main id="fullpage">
+		<section id="hero" class="section hero" data-label="Hero">
 			<div class="container">
 				<header class="top">
 					<img class="logo" alt="" src="./assets/logo-white.svg">
@@ -25,7 +26,7 @@
 			</div>
 			<img class="bg cover" alt="" src="./assets/hero-bg.png">
 		</section>
-		<section id="sign" class="fp-section sign" data-label="Sign">
+		<section id="sign" class="section sign" data-label="Sign">
 			<div class="container">
 				<header class="top">
 					<img class="logo" alt="" src="./assets/logo-black.svg">
@@ -40,7 +41,7 @@
 			</div>
 			<img class="bg split-right cover" alt="" src="./assets/sign-bg-right.png">
 		</section>
-		<section id="colors" class="fp-section colors" data-label="Grey &amp; White Intro">
+		<section id="colors" class="section colors" data-label="Grey &amp; White Intro">
 			<div class="container">
 				<header class="top">
 					<img class="logo" alt="" src="./assets/logo-black.svg">
@@ -66,13 +67,31 @@
 			<img class="bg diag-right" alt="" src="./assets/colors-top.png">
 			<img class="bg diag-right under" alt="" src="./assets/colors-bottom.png">
 		</section>
-		<section id="tech-columns" class="fp-section tech-columns" data-label="Технологии">
-			<div class="column"><img class="bg" alt="" src="./assets/column1.png"><div class="tech-box"><h3>DUAL IMPULSE SYSTEM</h3><p>Инновационная пружинная система с высоким коэффициентом сопротивления и в то же время с ярко выраженной анатомической поддержкой. Пружинная система DUAL IMPULSE более прочная и эластичная чем традиционная независимая система. Существенная разница заключается в большем количестве витков, особой форме и высоте пружины. 1000 пружин на одно спальное место.</p></div></div>
-			<div class="column"><img class="bg" alt="" src="./assets/column2.png"><div class="tech-box"><h3>CRISTAL POCKET SYSTEM</h3><p>Пружинная система с высокой несущей способностью. Отличается от традиционной независимой системы особым расположением пружин по форме "пчелиные соты". Увеличенная плотность системы пружин CRISTAL POCKET усиливает анатомичность поддержки. 700 пружин на одно спальное место.</p></div></div>
-			<div class="column"><img class="bg" alt="" src="./assets/column3.png"><div class="tech-box"><h3>STEEL LINE</h3><p>Технология STEEL LINE сохраняет статичность пружин за счёт ограничения периметра системы надежной металической рамкой. Способствует равномерному распредению нагрузки на пружины внутри системы. Увеличивает срок службы матраса. Положительно влияет на целостность геометрической формы матраса.</p></div></div>
-			<div class="column"><img class="bg" alt="" src="./assets/column4.png"><div class="tech-box"><h3>BI COTTON</h3><p>Текстильный материал с высоким содержанием хлопка термофиксированного с 20% полистера. Это сочетание создает уникальные свойства, которые делают bi-cotton идеальным для изготовления матрасов. Хлопок обеспечивает воздухопроницаемость и натруальность, в то время как полиэстер придает прочность, долговечность и эластичность. Благодаря своей структуре bi-cotton отлично "дышит", обеспечивает оптимальный микроклимат во время сна.</p></div></div>
+		<section id="tech-columns" class="section tech-columns" data-label="Технологии">
+			<div class="columns-wrapper">
+				<div class="column">
+					<img class="bg" alt="" src="./assets/column1.png">
+					<div class="column-title">DUAL IMPULSE SYSTEM</div>
+					<div class="tech-box"><h3>DUAL IMPULSE SYSTEM</h3><p>Инновационная пружинная система с высоким коэффициентом сопротивления и в то же время с ярко выраженной анатомической поддержкой. Пружинная система DUAL IMPULSE более прочная и эластичная чем традиционная независимая система. Существенная разница заключается в большем количестве витков, особой форме и высоте пружины. 1000 пружин на одно спальное место.</p></div>
+				</div>
+				<div class="column">
+					<img class="bg" alt="" src="./assets/column2.png">
+					<div class="column-title">CRISTAL POCKET SYSTEM</div>
+					<div class="tech-box"><h3>CRISTAL POCKET SYSTEM</h3><p>Пружинная система с высокой несущей способностью. Отличается от традиционной независимой системы особым расположением пружин по форме "пчелиные соты". Увеличенная плотность системы пружин CRISTAL POCKET усиливает анатомичность поддержки. 700 пружин на одно спальное место.</p></div>
+				</div>
+				<div class="column">
+					<img class="bg" alt="" src="./assets/column3.png">
+					<div class="column-title">STEEL LINE</div>
+					<div class="tech-box"><h3>STEEL LINE</h3><p>Технология STEEL LINE сохраняет статичность пружин за счёт ограничения периметра системы надежной металической рамкой. Способствует равномерному распредению нагрузки на пружины внутри системы. Увеличивает срок службы матраса. Положительно влияет на целостность геометрической формы матраса.</p></div>
+				</div>
+				<div class="column">
+					<img class="bg" alt="" src="./assets/column4.png">
+					<div class="column-title">BI COTTON</div>
+					<div class="tech-box"><h3>BI COTTON</h3><p>Текстильный материал с высоким содержанием хлопка термофиксированного с 20% полистера. Это сочетание создает уникальные свойства, которые делают bi-cotton идеальным для изготовления матрасов. Хлопок обеспечивает воздухопроницаемость и натруальность, в то время как полиэстер придает прочность, долговечность и эластичность. Благодаря своей структуре bi-cotton отлично "дышит", обеспечивает оптимальный микроклимат во время сна.</p></div>
+				</div>
+			</div>
 		</section>
-		<section id="one-sided-intro" class="fp-section one-sided" data-label="One sided">
+		<section id="one-sided-intro" class="section one-sided" data-label="One sided">
 			<div class="container">
 				<header class="top">
 					<img class="logo" alt="" src="./assets/logo-white.svg">
@@ -91,7 +110,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="selectors-one" class="fp-section selectors" data-label="Модели">
+		<section id="selectors-one" class="section selectors" data-label="Модели">
 			<div class="container">
 				<header class="top">
 					<img class="logo" alt="" src="./assets/logo-black.svg">
@@ -112,7 +131,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="aster" class="fp-section product product-aster" data-label="Aster">
+		<section id="aster" class="section product product-aster" data-label="Aster">
 			<div class="container">
 				<header class="top"><img class="logo" alt="" src="./assets/logo-black.svg"></header>
 				<div class="product-grid">
@@ -131,7 +150,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="glory" class="fp-section product product-glory" data-label="Glory">
+		<section id="glory" class="section product product-glory" data-label="Glory">
 			<div class="container">
 				<header class="top"><img class="logo" alt="" src="./assets/logo-black.svg"></header>
 				<div class="product-grid">
@@ -150,7 +169,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="violet" class="fp-section product product-violet" data-label="Violet">
+		<section id="violet" class="section product product-violet" data-label="Violet">
 			<div class="container">
 				<header class="top"><img class="logo" alt="" src="./assets/logo-black.svg"></header>
 				<div class="product-grid">
@@ -169,10 +188,10 @@
 				</div>
 			</div>
 		</section>
-		<section id="double-sided-intro" class="fp-section two-sided" data-label="Double sided">
+		<section id="double-sided-intro" class="section two-sided" data-label="Double sided">
 			<div class="container">
 				<header class="top">
-					<img class="logo" alt="" src="http://localhost:3845/assets/d5a80a17a8cae708b2276d45137483b1d9835b35.svg">
+					<img class="logo" alt="" src="./assets/logo-white.svg">
 					<div class="title right light">
 						<div class="sub">Коллекция</div>
 						<div class="cap">Viva Natura</div>
@@ -188,7 +207,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="selectors-two" class="fp-section selectors" data-label="Модели 2">
+		<section id="selectors-two" class="section selectors" data-label="Модели 2">
 			<div class="container">
 				<header class="top">
 					<img class="logo" alt="" src="./assets/logo-black.svg">
@@ -209,7 +228,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="daysi" class="fp-section product product-daysi" data-label="Daysi">
+		<section id="daysi" class="section product product-daysi" data-label="Daysi">
 			<div class="container">
 				<header class="top"><img class="logo" alt="" src="./assets/logo-black.svg"></header>
 				<div class="product-grid">
@@ -228,7 +247,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="rossi" class="fp-section product product-rossi" data-label="Rossi">
+		<section id="rossi" class="section product product-rossi" data-label="Rossi">
 			<div class="container">
 				<header class="top"><img class="logo" alt="" src="./assets/logo-black.svg"></header>
 				<div class="product-grid">
@@ -247,7 +266,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="ares" class="fp-section product product-ares" data-label="Ares">
+		<section id="ares" class="section product product-ares" data-label="Ares">
 			<div class="container">
 				<header class="top"><img class="logo" alt="" src="./assets/logo-black.svg"></header>
 				<div class="product-grid">
@@ -259,14 +278,14 @@
 						<div class="kv"><div class="k">дизайн</div><div class="v">white / gray - на выбор</div></div>
 						<div class="kv"><div class="k">наполнение</div><div class="v">carbon foam 2 см<br>bi - cotton 2 см<br>cristal pocket 700<br>bi - cotton 2 см<br>carbon foam 2 см<br>steel line</div></div>
 					</div>
-					<div class="visual">
-						<img class="cover" alt="" src="http://localhost:3845/assets/0fd97aefd1ff2c2b4b07f6ba0ab9a1c54c366dec.png">
+				<div class="visual">
+					<img class="cover" alt="" src="./assets/ares.png">
 						<div class="facts"><div><div class="k">макс. нагрузка на 1 спальное место</div><div class="v">170 кг</div></div><div><div class="k">Высота матраса</div><div class="v">24 см</div></div><div><div class="k">уровень комфорта</div><div class="v">Hard</div></div></div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section id="contacts" class="fp-section sign tail" data-label="Contacts">
+		<section id="contacts" class="section sign tail" data-label="Contacts">
 			<div class="container">
 				<header class="top right-only">
 					<img class="logo" alt="" src="./assets/logo-black.svg">
@@ -287,6 +306,7 @@
 			<img class="bg split-left cover" alt="" src="./assets/contacts-left.png">
 		</section>
 	</main>
+	<script src="https://unpkg.com/fullpage.js@4.0.20/dist/fullpage.min.js"></script>
 	<script src="./script.js" defer></script>
 	<!-- Источник дизайна: https://www.figma.com/design/4ap87859UR7w8Q4akyhRdU/Grassigrosso---Website?node-id=189-2&t=erBsN6fPXnByi8Ii-1 -->
 </body>
