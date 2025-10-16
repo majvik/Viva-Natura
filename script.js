@@ -14,169 +14,109 @@
 	});
 	const dots = Array.from(dotsNav.children);
 
-	/** Snap helpers */
-	let isAnimating = false;
-	let currentIndex = 0;
-	let scrollTimeout = null;
-	let programmaticScroll = false;
-	let lastScrollTop = 0;
-	let scrollEndTimeout = null;
+    /** Minimal slider state */
+    let isAnimating = false;
+    let currentIndex = 0;
+    let scrollEndTimeout = null;
+    let wheelAccumulator = 0;
+    let lastWheelTime = 0;
+    let lastWheelDir = 0;
 	
-	// Detect when scroll ends (including snap)
-	container.addEventListener('scroll', ()=>{
-		if(scrollEndTimeout) clearTimeout(scrollEndTimeout);
-		scrollEndTimeout = setTimeout(()=>{
-			// Scroll has ended
-			if(programmaticScroll){
-				programmaticScroll = false;
-				isAnimating = false;
-				if(scrollTimeout) clearTimeout(scrollTimeout);
-				scrollTimeout = null;
-			}
-		}, 150);
-		lastScrollTop = container.scrollTop;
-	});
+    // When scroll settles, snap state to nearest section and unlock
+    container.addEventListener('scroll', ()=>{
+        if(scrollEndTimeout) clearTimeout(scrollEndTimeout);
+        scrollEndTimeout = setTimeout(()=>{
+            const vh = window.innerHeight;
+            const idx = Math.max(0, Math.min(sections.length-1, Math.round(container.scrollTop / vh)));
+            currentIndex = idx;
+            updateDots(idx);
+            isAnimating = false;
+        }, 140);
+    });
 	
-	function scrollToIndex(index){
-		if(index<0 || index>=sections.length || isAnimating) return;
-		// Clear any pending scroll
-		if(scrollTimeout) clearTimeout(scrollTimeout);
-		
-		isAnimating = true;
-		programmaticScroll = true;
-		currentIndex = index;
-		const top = sections[index].offsetTop;
-		
-		container.scrollTo({ top, behavior:'smooth' });
-		updateDots(index);
-		
-		// Backup timeout in case scroll event doesn't fire
-		scrollTimeout = setTimeout(()=>{ 
-			isAnimating=false;
-			programmaticScroll = false;
-			scrollTimeout = null;
-		}, 1500);
-	}
+    function scrollToIndex(index){
+        if(index<0 || index>=sections.length || isAnimating) return;
+        isAnimating = true;
+        currentIndex = index;
+        const top = sections[index].offsetTop;
+        container.scrollTo({ top, behavior:'smooth' });
+        updateDots(index);
+        // reset accumulators to kill momentum
+        wheelAccumulator = 0;
+        lastWheelDir = 0;
+        setTimeout(()=>{ isAnimating = false; }, 900);
+    }
 	function updateDots(activeIdx){
 		dots.forEach((d,i)=> d.setAttribute('aria-current', i===activeIdx ? 'true':'false'));
 	}
-	/** Check if section can be scrolled further */
-	function canScrollInSection(section, direction){
-		// Only check for sections with auto height
-		if(section.id !== 'selectors-one' && section.id !== 'selectors-two') return false;
-		const hasScroll = section.scrollHeight > window.innerHeight;
-		if(!hasScroll) return false;
-		// Calculate scroll position within section
-		const sectionTop = section.offsetTop;
-		const containerScrollTop = container.scrollTop;
-		const scrollInSection = containerScrollTop - sectionTop;
-		const maxScroll = section.scrollHeight - window.innerHeight;
-		if(direction > 0) return scrollInSection < maxScroll - 10; // scrolling down
-		return scrollInSection > 10; // scrolling up
-	}
+    // No inner-section scrolling; every section is exactly 100vh
 	/** Wheel/keys */
 	let wheelLock = false;
 	let scrollAccumulator = 0;
 	let lastScrollTime = Date.now();
 	let lastDirection = 0;
 	
-	container.addEventListener('wheel', (e)=>{
-		const delta = Math.sign(e.deltaY);
-		const currentSection = sections[currentIndex];
-		
-		// Check if we need to scroll inside section first
-		if(canScrollInSection(currentSection, delta)){
-			scrollAccumulator = 0;
-			return; // let natural scroll happen
-		}
-		
-		// Prevent default scroll when not inside scrollable section
-		e.preventDefault();
-		
-		if(wheelLock || isAnimating){
-			return;
-		}
-		
-		// Detect trackpad vs mouse wheel
-		// Trackpad: many small deltaY values (typically < 50)
-		// Mouse wheel: fewer large deltaY values (typically > 50)
-		const isTouchpad = Math.abs(e.deltaY) < 50;
-		const scrollThreshold = isTouchpad ? 800 : 400;
-		
-		const now = Date.now();
-		const timeDiff = now - lastScrollTime;
-		
-		// Reset accumulator if direction changed or too much time passed
-		if(delta !== lastDirection || timeDiff > 300){
-			scrollAccumulator = 0;
-		}
-		
-		lastScrollTime = now;
-		lastDirection = delta;
-		
-		// Accumulate scroll
-		scrollAccumulator += Math.abs(e.deltaY);
-		
-		// Check if threshold reached
-		if(scrollAccumulator >= scrollThreshold){
-			wheelLock = true;
-			scrollAccumulator = 0;
-			if(delta>0) scrollToIndex(currentIndex+1);
-			else if(delta<0) scrollToIndex(currentIndex-1);
-			setTimeout(()=> {
-				wheelLock=false;
-				lastDirection = 0;
-			}, 1000);
-		}
-	}, { passive:false });
-	window.addEventListener('keydown', (e)=>{
-		if(isAnimating) return;
-		const currentSection = sections[currentIndex];
-		if(e.key==='ArrowDown' || e.key==='PageDown'){
-			if(canScrollInSection(currentSection, 1)) return;
-			scrollToIndex(currentIndex+1);
-		}
-		if(e.key==='ArrowUp' || e.key==='PageUp'){
-			if(canScrollInSection(currentSection, -1)) return;
-			scrollToIndex(currentIndex-1);
-		}
-		if(e.key==='Home') scrollToIndex(0);
-		if(e.key==='End') scrollToIndex(sections.length-1);
-	});
+    container.addEventListener('wheel', (e)=>{
+        // prevent natural scroll to keep full control
+        e.preventDefault();
+        const dir = Math.sign(e.deltaY);
+        if(dir === 0) return;
+        const now = performance.now();
+        const timeDiff = now - lastWheelTime;
+        if(dir !== lastWheelDir || timeDiff > 300){
+            wheelAccumulator = 0;
+        }
+        lastWheelTime = now;
+        lastWheelDir = dir;
+        // Accumulate in pixel-equivalents; deltaMode 0=pixels, 1=lines (~16px)
+        const deltaPx = Math.min(120, Math.abs(e.deltaY) * (e.deltaMode === 1 ? 16 : 1));
+        wheelAccumulator += deltaPx;
+        // Threshold proportional to viewport height; larger for products
+        const vh = window.innerHeight;
+        const currentSection = sections[currentIndex];
+        const isProduct = currentSection && currentSection.classList.contains('product');
+        const thresholdPx = (isProduct ? 1.25 : 0.95) * vh;
+        if(!isAnimating && wheelAccumulator >= thresholdPx){
+            wheelAccumulator = 0;
+            scrollToIndex(currentIndex + (dir>0 ? 1 : -1));
+        }
+    }, { passive:false });
+    window.addEventListener('keydown', (e)=>{
+        if(isAnimating) return;
+        if(e.key==='ArrowDown' || e.key==='PageDown') scrollToIndex(currentIndex+1);
+        if(e.key==='ArrowUp' || e.key==='PageUp') scrollToIndex(currentIndex-1);
+        if(e.key==='Home') scrollToIndex(0);
+        if(e.key==='End') scrollToIndex(sections.length-1);
+    });
 	/** Touch */
-	let touchStartY = null;
+    let touchStartY = null;
 	container.addEventListener('touchstart', (e)=>{ touchStartY = e.touches[0].clientY; }, { passive:true });
-	container.addEventListener('touchmove', (e)=>{
-		if(touchStartY===null || isAnimating) return;
-		const dy = e.touches[0].clientY - touchStartY;
-		if(Math.abs(dy) > 50){
-			const currentSection = sections[currentIndex];
-			const direction = dy < 0 ? 1 : -1;
-			if(canScrollInSection(currentSection, direction)){
-				touchStartY = e.touches[0].clientY;
-				return;
-			}
-			if(dy < 0) scrollToIndex(currentIndex+1);
-			else scrollToIndex(currentIndex-1);
-			touchStartY = null;
-		}
+    container.addEventListener('touchmove', (e)=>{
+        if(touchStartY===null || isAnimating) return;
+        const dy = e.touches[0].clientY - touchStartY;
+        const currentSection = sections[currentIndex];
+        const isProduct = currentSection && currentSection.classList.contains('product');
+        const vh = window.innerHeight;
+        const thr = (isProduct ? 0.20 : 0.12) * vh;
+        if(Math.abs(dy) > thr){
+            if(dy < 0) scrollToIndex(currentIndex+1);
+            else scrollToIndex(currentIndex-1);
+            touchStartY = null;
+        }
 	}, { passive:true });
 	container.addEventListener('touchend', ()=>{ touchStartY = null; }, { passive:true });
 	/** Keep section height = viewport */
-	function resize(){
-		sections.forEach(s=> {
-			// Skip sections that should be scrollable
-			if(s.id === 'selectors-one' || s.id === 'selectors-two'){
-				s.style.height = 'auto';
-				s.style.minHeight = `${window.innerHeight}px`;
-			} else {
-				s.style.height = `${window.innerHeight}px`;
-			}
-		});
+    function resize(){
+        sections.forEach(s=> {
+            // Force all sections to exact viewport height
+            s.style.height = `${window.innerHeight}px`;
+            s.style.minHeight = `${window.innerHeight}px`;
+            s.style.overflow = 'hidden';
+        });
 		// Only scroll if not animating
 		if(!isAnimating){
 			const top = sections[currentIndex].offsetTop;
-			container.scrollTo({ top, behavior:'auto' }); // instant, not smooth
+            container.scrollTo({ top, behavior:'auto' });
 		}
 	}
 	window.addEventListener('resize', resize);

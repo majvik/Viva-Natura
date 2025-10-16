@@ -50,11 +50,11 @@ img{ display:block; max-width:100%; height:auto; }
 }
 #selectors-one,
 #selectors-two{
-	height:auto;
-	min-height:100vh;
-	overflow:visible;
-	scroll-snap-align:start;
-	scroll-snap-stop:always;
+    height:100vh;
+    min-height:100vh;
+    overflow:hidden;
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
 }
 
 /* Navigation dots */
