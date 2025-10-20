@@ -219,6 +219,7 @@ img{ display:block; max-width:100%; height:auto; }
 	height:1px;
 	background: linear-gradient(90deg, #C1C1C1 0%, #163C55 100%);
 	z-index:1;
+	transition:opacity 0.3s ease, filter 0.3s ease;
 }
 .product-colors .line-bottom{
 	position:absolute;
@@ -228,6 +229,7 @@ img{ display:block; max-width:100%; height:auto; }
 	height:1px;
 	background: linear-gradient(90deg, #C1C1C1 0%, #163C55 100%);
 	z-index:1;
+	transition:opacity 0.3s ease, filter 0.3s ease;
 }
 .product-colors .first-left{
 	position:absolute;
@@ -237,6 +239,7 @@ img{ display:block; max-width:100%; height:auto; }
 	height:220px;
 	z-index:1;
 	cursor:pointer;
+	transition:opacity 0.3s ease, filter 0.3s ease;
 }
 .product-colors .second-left{
 	position:absolute;
@@ -246,6 +249,7 @@ img{ display:block; max-width:100%; height:auto; }
 	height:161px;
 	z-index:2;
 	cursor:pointer;
+	transition:opacity 0.3s ease, filter 0.3s ease;
 }
 .product-colors .right-top{
 	position:absolute;
@@ -254,6 +258,7 @@ img{ display:block; max-width:100%; height:auto; }
 	width:22px;
 	height:22px;
 	z-index:3;
+	transition:opacity 0.3s ease, filter 0.3s ease;
 }
 .product-colors .right-bottom{
 	position:absolute;
@@ -262,6 +267,7 @@ img{ display:block; max-width:100%; height:auto; }
 	width:22px;
 	height:94px;
 	z-index:4;
+	transition:opacity 0.3s ease, filter 0.3s ease;
 }
 .product-colors .visual{
 	display:flex;
@@ -288,7 +294,7 @@ img{ display:block; max-width:100%; height:auto; }
 	object-fit:contain;
 	object-position:center center;
 	z-index:1;
-	transition:top 0.6s ease;
+	transition:top 0.6s ease, filter 0.3s ease;
 }
 .product-colors .mattress-shadow{
 	position:absolute;
@@ -310,7 +316,7 @@ img{ display:block; max-width:100%; height:auto; }
 	object-fit:contain;
 	object-position:center center;
 	z-index:3;
-	transition:top 0.6s ease;
+	transition:top 0.6s ease, filter 0.3s ease;
 }
 /* Mattress animation classes - controlled by JavaScript */
 .mattress-top-animate .mattress-top{
@@ -325,6 +331,24 @@ img{ display:block; max-width:100%; height:auto; }
 /* Hide shadow when only the top mattress animates */
 .mattress-top-animate .mattress-shadow{
 	opacity:0;
+}
+
+/* Color selection lightening filter on paired elements */
+.product-colors.first-hover .second-left,
+.product-colors.first-hover .line-bottom,
+.product-colors.first-hover .right-bottom{
+	opacity: 0.6;
+}
+.product-colors.first-hover .mattress-bottom{
+	filter:brightness(0.8) saturate(0.4);
+}
+.product-colors.second-hover .mattress-top{
+	filter:brightness(0.6) saturate(0.4);
+}
+.product-colors.second-hover .first-left,
+.product-colors.second-hover .line-top,
+.product-colors.second-hover .right-top {
+	opacity: 0.6;
 }
 
 /* Tech columns section */
