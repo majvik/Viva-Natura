@@ -568,6 +568,7 @@ img{ display:block; max-width:100%; height:auto; }
 	position:relative;
 	height:540px;
 	overflow:hidden;
+    cursor:pointer;
 }
 .selectors .selector-card .selector-title{
 	font-family:'Loos Extended', sans-serif;
@@ -601,11 +602,19 @@ img{ display:block; max-width:100%; height:auto; }
 	color:#003d57;
 	text-decoration:none;
 	transition:opacity 0.3s ease;
-	cursor:pointer;
+	cursor:default;
 }
-.selectors .selector-item:hover{
-	opacity:0.8;
-}
+.selectors .selector-item:hover{ opacity:1; }
+
+/* Hover sync: when hovering one column, dim others */
+.selectors.hovering .selector-visual .selector-card,
+.selectors.hovering .selector-text .selector-item{ opacity:0.6; }
+.selectors.hover-0 .selector-visual .selector-card:nth-child(1),
+.selectors.hover-0 .selector-text .selector-item:nth-child(1){ opacity:1; }
+.selectors.hover-1 .selector-visual .selector-card:nth-child(2),
+.selectors.hover-1 .selector-text .selector-item:nth-child(2){ opacity:1; }
+.selectors.hover-2 .selector-visual .selector-card:nth-child(3),
+.selectors.hover-2 .selector-text .selector-item:nth-child(3){ opacity:1; }
 .selectors .selector-item h4{
 	font-family:'Loos Extended', sans-serif;
 	font-size:44px;

@@ -162,14 +162,49 @@
 
 	
 	/** Handle selector-item links */
-	document.querySelectorAll('.selector-item').forEach(link => {
-		link.addEventListener('click', (e)=>{
-			e.preventDefault();
-			const targetId = link.getAttribute('href').substring(1);
-			const targetIndex = sections.findIndex(s => s.id === targetId);
-			if(targetIndex >= 0 && window.fullpage_api){
-				window.fullpage_api.moveTo(targetIndex + 1);
-			}
+	const selectorsSections = document.querySelectorAll('.section.selectors');
+	selectorsSections.forEach(section => {
+		const visualCards = Array.from(section.querySelectorAll('.selector-visual .selector-card'));
+		const textItems = Array.from(section.querySelectorAll('.selector-text .selector-item'));
+
+		// Sync hover: dim others
+		function setHover(idx){
+			section.classList.add('hovering');
+			section.classList.remove('hover-0','hover-1','hover-2');
+			section.classList.add(`hover-${idx}`);
+		}
+		function clearHover(){
+			section.classList.remove('hovering','hover-0','hover-1','hover-2');
+		}
+
+		visualCards.forEach((card, idx)=>{
+			card.addEventListener('mouseenter', ()=> setHover(idx));
+			card.addEventListener('mouseleave', clearHover);
+			card.addEventListener('click', ()=>{
+				// click navigates using paired textItems link
+				const link = textItems[idx];
+				if(!link) return;
+				const targetId = link.getAttribute('href').substring(1);
+				const targetIndex = sections.findIndex(s => s.id === targetId);
+				if(targetIndex >= 0 && window.fullpage_api){
+					window.fullpage_api.moveTo(targetIndex + 1);
+				}
+			});
+		});
+
+		// Disable default text link click hover, but keep navigation unified
+		textItems.forEach((link, idx)=>{
+			link.addEventListener('mouseenter', ()=> setHover(idx));
+			link.addEventListener('mouseleave', clearHover);
+			link.addEventListener('click', (e)=>{
+				e.preventDefault();
+				// unify with card click
+				const targetId = link.getAttribute('href').substring(1);
+				const targetIndex = sections.findIndex(s => s.id === targetId);
+				if(targetIndex >= 0 && window.fullpage_api){
+					window.fullpage_api.moveTo(targetIndex + 1);
+				}
+			});
 		});
 	});
 	
@@ -184,19 +219,23 @@
 			// Add hover listeners to first-left (animates mattress-top)
 			firstLeft.addEventListener('mouseenter', function(){
 				mattressesStack.classList.add('mattress-top-animate');
+				productColorsSection.classList.add('first-hover');
 			});
 			
 			firstLeft.addEventListener('mouseleave', function(){
 				mattressesStack.classList.remove('mattress-top-animate');
+				productColorsSection.classList.remove('first-hover');
 			});
 			
 			// Add hover listeners to second-left (animates mattress-bottom)
 			secondLeft.addEventListener('mouseenter', function(){
 				mattressesStack.classList.add('mattress-bottom-animate');
+				productColorsSection.classList.add('second-hover');
 			});
 			
 			secondLeft.addEventListener('mouseleave', function(){
 				mattressesStack.classList.remove('mattress-bottom-animate');
+				productColorsSection.classList.remove('second-hover');
 			});
 		}
 	}
