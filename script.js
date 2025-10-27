@@ -58,6 +58,15 @@
 			onLeave: function(origin, destination, direction, trigger){
 				// Update custom dots navigation
 				updateDots(destination.index);
+				// Toggle scroll-to-top button visibility (only from #colors and below)
+				const scrollTopBtnInline = document.querySelector('.scroll-top');
+				if(scrollTopBtnInline){
+					const colorsStartIndex = (function(){
+						const idx = sections.findIndex(s => s.id === 'colors');
+						return idx >= 0 ? idx : 2;
+					})();
+					scrollTopBtnInline.classList.toggle('hidden', destination.index < colorsStartIndex);
+				}
 			},
 		afterRender: function(){
 			// Ensure proper layout after fullPage.js initializes
@@ -247,6 +256,47 @@
 			watermark.style.opacity = '0';
 			watermark.style.pointerEvents = 'none';
 			watermark.style.userSelect = 'none';
+		}
+
+		// Scroll to top (hero) button
+		const scrollTopBtn = document.querySelector('.scroll-top');
+		if(scrollTopBtn){
+			scrollTopBtn.addEventListener('click', ()=>{
+				if(window.fullpage_api && typeof window.fullpage_api.moveTo === 'function'){
+					window.fullpage_api.moveTo(1);
+				} else {
+					const hero = document.getElementById('hero');
+					if(hero){ hero.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+				}
+			});
+
+			// visibility without fullPage: show only when #colors not fully in view top
+			const updateScrollTopVisibility = (activeIdx)=>{
+				if(typeof activeIdx === 'number'){
+					const colorsStartIndex = (function(){
+						const idx = sections.findIndex(s => s.id === 'colors');
+						return idx >= 0 ? idx : 2;
+					})();
+					scrollTopBtn.classList.toggle('hidden', activeIdx < colorsStartIndex);
+					return;
+				}
+				// fallback: check if we scrolled past #colors
+				const colors = document.getElementById('colors');
+				if(!colors) return;
+				const rect = colors.getBoundingClientRect();
+				const beforeColors = rect.top >= 0; // still above colors
+				scrollTopBtn.classList.toggle('hidden', beforeColors);
+			};
+
+			// with fullPage.js
+			if(window.fullpage_api){
+				updateScrollTopVisibility(0);
+				// hook into onLeave already set above
+				const origOnLeave = typeof FPConstructor === 'function' ? null : null; // placeholder (already handled above)
+			} else {
+				updateScrollTopVisibility();
+				window.addEventListener('scroll', ()=> updateScrollTopVisibility());
+			}
 		}
 	});
 })();

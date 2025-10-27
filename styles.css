@@ -1,8 +1,8 @@
-/* Loos Extended font - добавьте файлы шрифтов в папку fonts/ */
+/* Bounded Variable font - добавьте файлы шрифтов в папку fonts/ */
 @font-face{
-	font-family:'Loos Extended';
-	src:url('./fonts/LoosExtended-Bold.woff2') format('woff2'),
-	    url('./fonts/LoosExtended-Bold.woff') format('woff');
+	font-family:'Bounded Variable';
+	src:url('./fonts/bounded-variable.woff2') format('woff2'),
+	    url('./fonts/bounded-variable.woff') format('woff');
 	font-weight:700;
 	font-style:normal;
 	font-display:swap;
@@ -110,7 +110,7 @@ img{ display:block; max-width:100%; height:auto; }
 	font-weight:400;
 }
 .title .cap{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-weight:700;
 	font-size:32px;
 	line-height:1.2;
@@ -137,15 +137,15 @@ img{ display:block; max-width:100%; height:auto; }
 	font-weight:400;
 }
 .badge-title{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-size:36px;
 	font-weight:700;
 	line-height:1.2;
 }
 .hero-title{
-	margin-top:64px;
-	font-size:64px;
-	letter-spacing:10.24px;
+	margin-top:32px;
+	font-size:48px;
+	letter-spacing:6px;
 	text-transform:uppercase;
 	line-height:1.2;
 	display:flex;
@@ -385,7 +385,7 @@ img{ display:block; max-width:100%; height:auto; }
 	position:absolute;
 	bottom:24px;
 	left:48px;
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-size:36px;
 	font-weight:700;
 	line-height:1.1;
@@ -453,7 +453,7 @@ img{ display:block; max-width:100%; height:auto; }
 	transition:opacity 0.5s 0.5s;
 }
 .tech-columns .tech-box h3{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-size:29px;
 	font-weight:700;
 	line-height:1.1;
@@ -521,7 +521,7 @@ img{ display:block; max-width:100%; height:auto; }
 	z-index:2;
 }
 .h2{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-size:44px;
 	font-weight:700;
 	text-transform:uppercase;
@@ -571,7 +571,7 @@ img{ display:block; max-width:100%; height:auto; }
     cursor:pointer;
 }
 .selectors .selector-card .selector-title{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	position:absolute;
 	top:16px;
 	left:16px;
@@ -616,7 +616,7 @@ img{ display:block; max-width:100%; height:auto; }
 .selectors.hover-2 .selector-visual .selector-card:nth-child(3),
 .selectors.hover-2 .selector-text .selector-item:nth-child(3){ opacity:1; }
 .selectors .selector-item h4{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-size:44px;
 	font-weight:700;
 	line-height:1.2;
@@ -673,7 +673,7 @@ img{ display:block; max-width:100%; height:auto; }
 	z-index:2;
 }
 .product .text .title{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	color:#003d57;
 	font-size:24px;
 	font-weight:700;
@@ -763,7 +763,7 @@ img{ display:block; max-width:100%; height:auto; }
 	margin-bottom:auto;
 }
 .product .facts .v{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-size:30px;
 	font-weight:700;
 	line-height:1.2;
@@ -802,11 +802,19 @@ img{ display:block; max-width:100%; height:auto; }
 	font-weight:600;
 }
 .tail .v.h3{
-	font-family:'Loos Extended', sans-serif;
+	font-family:'Bounded Variable', sans-serif;
 	font-size:32px;
 	font-weight:700;
 	color:#003d57;
 	line-height:1.2;
+}
+.tail .v.h3 a{
+	color:inherit;
+	text-decoration:none;
+	transition:text-decoration-color 0.2s ease;
+}
+.tail .v.h3 a:hover{
+	text-decoration:underline;
 }
 .tail .p{
 	font-size:24px;
@@ -832,6 +840,28 @@ html.fp-enabled,
 	height: 100%;
 	position: relative;
 }
+.scroll-top{
+	position:fixed;
+	right:48px;
+	bottom:48px;
+	z-index:110;
+	width:80px;
+	height:80px;
+	border-radius:50%;
+	border:none;
+	background:rgba(0,0,0,.06);
+	backdrop-filter:blur(4px) saturate(120%);
+	-webkit-backdrop-filter:blur(4px) saturate(120%);
+	cursor:pointer;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	transition:opacity .2s ease, transform .2s ease, background-color .2s ease;
+	box-shadow:0 8px 32px rgba(0,0,0,0.15);
+}
+.scroll-top.hidden{ display:none; }
+.scroll-top img{ width:64px; height:64px; }
+.scroll-top:hover{ transform:translateY(-2px); background:rgba(0,0,0,.12); }
 .fp-section {
 	position: relative;
 	-webkit-box-sizing: border-box;
