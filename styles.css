@@ -60,7 +60,7 @@ img{ display:block; max-width:100%; height:auto; }
 /* Common layout */
 .container{
 	width:1440px;
-	max-width:100%;
+	max-width:1440px;
 	padding:0 48px;
 	margin:0 auto;
 	position:relative;
@@ -781,12 +781,15 @@ img{ display:block; max-width:100%; height:auto; }
 .tail{
 	color:#153c55;
 }
+.tail .top.right-only{
+	margin-left:calc(50% + 80px);
+}
 .tail .contacts{
 	display:grid;
 	grid-template-columns:1fr;
 	gap:40px;
 	width:550px;
-	margin-left:50%;
+	margin-left:calc(50% + 80px);
 	margin-top:200px;
 }
 .tail .block{
@@ -824,7 +827,7 @@ img{ display:block; max-width:100%; height:auto; }
 .tail .bg.split-left{
 	position:absolute;
 	left:0;
-	width:40%;
+	width:50%;
 	height:100%;
 }
 
@@ -888,3 +891,4 @@ html.fp-enabled,
 	vertical-align: top;
 	height: 100%;
 }
+
