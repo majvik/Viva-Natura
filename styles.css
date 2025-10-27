@@ -60,7 +60,7 @@ img{ display:block; max-width:100%; height:auto; }
 /* Common layout */
 .container{
 	width:1440px;
-	max-width:1440px;
+	max-width:calc(100% - 96px);
 	padding:0 48px;
 	margin:0 auto;
 	position:relative;
@@ -715,7 +715,7 @@ img{ display:block; max-width:100%; height:auto; }
 	position:absolute;
 	top:0;
 	right:0;
-	width:50vw;
+	width:720px;
 	height:100vh;
 	background:#f2e6d4;
 	padding:0 0 75px 0;
@@ -735,7 +735,7 @@ img{ display:block; max-width:100%; height:auto; }
     object-fit:contain;
     object-position:center center;
     z-index:1;
-    transform:scale(1.25);
+    transform:scale(1.28);
     will-change:transform;
 }
 .product .facts{
@@ -890,5 +890,28 @@ html.fp-enabled,
 	display: block !important;
 	vertical-align: top;
 	height: 100%;
+}
+
+/* Fix container and body width on large screens */
+@media (min-width: 1441px) {
+	html {
+		display: flex;
+		justify-content: center;
+	}
+	body {
+		width: 1440px;
+		max-width: 1440px;
+	}
+	.container{
+		width: 1440px;
+		max-width: 1440px;
+	}
+}
+
+/* Adapt visual width on small screens */
+@media (max-width: 1440px) {
+	.product .visual{
+		width: 50%;
+	}
 }
 
