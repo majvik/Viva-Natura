@@ -118,7 +118,10 @@ img{ display:block; max-width:100%; height:auto; }
 .title.right{ text-align:right; }
 
 /* Hero section */
-.hero{ color:#F2E6D4; }
+.hero{ 
+	color:#F2E6D4; 
+	background: #fff;
+}
 .badge{
 	padding:16px 24px;
 	border-radius:13px;
@@ -194,6 +197,9 @@ img{ display:block; max-width:100%; height:auto; }
 }
 
 /* Colors section (now as product) */
+.product-colors{
+	background:#fff;
+}
 .product-colors .text .title{
 	font-size:44px !important;
 }
@@ -650,6 +656,7 @@ img{ display:block; max-width:100%; height:auto; }
 /* Product sections */
 .product{
 	position:relative;
+	background:#fff;
 }
 .product .container{
 	position:relative;
@@ -780,6 +787,7 @@ img{ display:block; max-width:100%; height:auto; }
 /* Contacts tail */
 .tail{
 	color:#153c55;
+	background:#fff;
 }
 .tail .top.right-only{
 	margin-left:calc(50% + 80px);
